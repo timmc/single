@@ -6,10 +6,22 @@ function tw(t, w) {
     return {type: "t", turn: t, wait: w};
 }
 
+var noAutomation = false;
+
+/** Stop processing automated commands. */
+function stop() {
+    noAutomation = true;
+}
+
+/** Allow automated commands again. */
+function unstop() {
+    noAutomation = false;
+}
+
 function doSequence(seq, k) {
     var i = 0;
     function doNext() {
-        if(i >= seq.length) {
+        if(noAutomation || i >= seq.length) {
             if(k) k();
             return;
         }
