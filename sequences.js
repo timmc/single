@@ -17,6 +17,29 @@ var halfPatrol = [cForward, cForward, cForward, cStabilize].concat(aboutFace);
 // A patrol loop (forward, turn around, forward, turn around)
 var patrolLoop = [].concat(halfPatrol, halfPatrol);
 
+/*
+ * Experimental sequences -- not reliable.
+ */
+
+var pentangleSegment = [
+  cForward, cForward, cStabilize, tw(72, 1700), tw(72, 1700)
+];
+var pentangle = [].concat(
+  pentangleSegment, pentangleSegment, pentangleSegment,
+  pentangleSegment, pentangleSegment
+);
+
+// Generate a weird stumbly sequence.
+function mStumble(n) {
+    var res = [];
+    for (var i = 0; i <= n; i++) {
+        var d = Math.random() * -100;
+        var t = Math.random() * 100 - 50;
+        var w = Math.random() * 400 + 100;
+        res.push(dtw(d, t, w));
+    }
+    return res;
+}
 
 // Demo:
 doSequence(patrolLoop);
