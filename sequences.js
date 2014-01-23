@@ -42,4 +42,4 @@ function mStumble(n) {
 }
 
 // Demo:
-doSequence(patrolLoop);
+// doSequence(patrolLoop);
