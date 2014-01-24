@@ -33,8 +33,8 @@ var pentangle = [].concat(
 function mStumble(n) {
     var res = [];
     for (var i = 0; i <= n; i++) {
-        var d = Math.random() * -100;
-        var t = Math.random() * 100 - 50;
+        var d = Math.random() * -75 - 25;
+        var t = Math.random() * 180 - 90;
         var w = Math.random() * 400 + 100;
         res.push(dtw(d, t, w));
     }
