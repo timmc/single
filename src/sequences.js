@@ -29,14 +29,24 @@ var pentangle = [].concat(
   pentangleSegment, pentangleSegment
 );
 
-// Generate a weird stumbly sequence.
-function mStumble(n) {
+/** Generate a random wander with n segments. */
+function mWander(n) {
     var res = [];
     for (var i = 0; i <= n; i++) {
-        var d = Math.random() * -75 - 25;
-        var t = Math.random() * 180 - 90;
-        var w = Math.random() * 400 + 100;
-        res.push(dtw(d, t, w));
+        var choose = Math.random();
+        if (choose < 0.1) {
+            var wait = Math.random() * 1500;
+            res.push(dtw(0, 0, wait));
+        } else if (choose < 0.2) {
+            var turn = Math.random() * 180 - 90;
+            var wait = Math.random() * 800;
+            res.push(tw(turn, wait));
+        } else {
+            var dist = Math.random() * 3 + 2;
+            var velocity = Math.random() * 0.5 + 0.5;
+            var turn = Math.random() * 180 - 90;
+            res = res.concat(driveDist(dist, velocity, turn));
+        }
     }
     return res;
 }
