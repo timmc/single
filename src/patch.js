@@ -98,9 +98,13 @@ function repeatSeq(seq, n) {
     return ret;
 }
 
-// Drive for a total of total_w millis in chunks of at most chunk_w.
-function driveTimed(d, t, total_w, chunk_w) {
+/**
+ * Drive at velocity v for a total of total_w millis with turn rate t.
+ */
+function driveTimed(v, t, total_w) {
     var ret = [], remain = total_w;
+    var chunk_w = 250; // About as long as the command lasts.
+    var d = vToD(v);
     while (remain > 0) {
         var w = Math.min(remain, chunk_w);
         ret.push(dtw(d, t, w));
@@ -109,13 +113,19 @@ function driveTimed(d, t, total_w, chunk_w) {
     return ret;
 }
 
-// Distance in feet, ratio to max speed
-function driveDist(distance, ratio) {
+/**
+ * Drive dist feet at velocity v with turn t. (Turn is not
+ * well-defined, and may change meaning in the future. Use at own
+ * risk.)
+ */
+function driveDist(dist, v, t) {
+    if (v === 0) {
+        return [];
+    }
     // Compute how many milliseconds we would have to travel at "light speed"
     // (maximum forward speed) to cover this distance.
-    var lightMilliSeconds = distance * 400;
-    var totalTime = Math.abs(lightMilliSeconds / ratio);
-    var chunkTime = 1500 * ratio;
-    var d = -100 * ratio;
-    return driveTimed(d, 0, totalTime, chunkTime);
+    var lightMilliSeconds = dist * 400;
+    var totalTime = Math.abs(lightMilliSeconds / v);
+    // TODO: Account for time to start/stop?
+    return driveTimed(v, t, totalTime);
 }
