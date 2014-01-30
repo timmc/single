@@ -51,5 +51,23 @@ function mWander(n) {
     return res;
 }
 
+/**
+ * Generate a forward/backward oscillation with a given period in ms
+ * and a total wait time in ms. v = velocity, t = turn factor, turnAlt
+ * = true for alternating the turn direction.
+ */
+function mOscillate(v, t, turnAlt, period, total_w) {
+    var leftover = total_w % period;
+    var reps = (total_w - leftover) / period;
+    var hp = period / 2;
+    var tb = t * (turnAlt ? -1 : 1);
+    var iteration = driveTimed(v, t, hp).concat(driveTimed(-v, tb, hp));
+    var ret = repeatSeq(iteration, reps);
+    if (leftover > 0) {
+        ret.push(dtw(0, 0, leftover));
+    }
+    return ret;
+}
+
 // Demo:
 // doSequence(patrolLoop);
