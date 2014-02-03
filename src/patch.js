@@ -1,4 +1,14 @@
 /*
+ * Library of movement commands as functions that can either be bound
+ * to the same object or run in the window context. See the basicApi
+ * var at the end for a public API.
+ */
+
+function initAutomation() {
+    this.noAutomation = false;
+}
+
+/*
  * Movement primitives
  */
 
@@ -54,22 +64,20 @@ function dToV(d) {
  * Automation
  */
 
-var noAutomation = false;
-
 /** Stop processing automated commands. */
 function stop() {
-    noAutomation = true;
+    this.noAutomation = true;
 }
 
 /** Allow automated commands again. */
 function unstop() {
-    noAutomation = false;
+    this.noAutomation = false;
 }
 
 function doSequence(seq, k) {
     var i = 0;
     function doNext() {
-        if(noAutomation || i >= seq.length) {
+        if(this.noAutomation || i >= seq.length) {
             if(k) k();
             return;
         }
@@ -153,3 +161,18 @@ function wait(w) {
     return [dtw(0, 0, w)];
 }
 
+var basicApi = {
+    init:initAutomation,
+    dtw:dtw,
+    tw:tw,
+    vToD:vToD,
+    dToV:dToV,
+    stop:stop,
+    unstop:unstop,
+    doSequence:doSequence,
+    repeatSeq:repeatSeq,
+    driveTimed:driveTimed,
+    driveDist:driveDist,
+    turnBy:turnBy,
+    wait:wait
+};
