@@ -1,33 +1,23 @@
 /*
- * Basic commands and sequences -- building blocks for other sequences.
- */
-
-// Turn around. (Don't use 180; it (weirdly) alternates left vs. right.)
-var aboutFace = [tw(90, 1500), tw(90, 1500)];
-// Repeat this for smooth forward motion.
-var cForward = dtw(-100, 0, 1500);
-// Use this command after the last cForward (allow balancing)
-var cStabilize = dtw(0,0,1300);
-
-/*
  * Sample sequences
  */
 
-var halfPatrol = [cForward, cForward, cForward, cStabilize].concat(aboutFace);
 // A patrol loop (forward, turn around, forward, turn around)
-var patrolLoop = [].concat(halfPatrol, halfPatrol);
+function patrolLoop() {
+    var half = [].concat(driveDist(10, 1, 0), wait(1300),
+                         turnBy(180), wait(200));
+    return repeatSeq(half, 2);
+}
 
 /*
  * Experimental sequences -- not reliable.
  */
 
-var pentangleSegment = [
-  cForward, cForward, cStabilize, tw(72, 1700), tw(72, 1700)
-];
-var pentangle = [].concat(
-  pentangleSegment, pentangleSegment, pentangleSegment,
-  pentangleSegment, pentangleSegment
-);
+function pentangle() {
+    var segment = [].concat(driveDist(5, 1, 0), wait(1300),
+                            turnBy(144), wait(200));
+    return repeatSeq(segment, 5);
+}
 
 /** Generate a random wander with n segments. */
 function mWander(n) {

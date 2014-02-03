@@ -129,3 +129,27 @@ function driveDist(dist, v, t) {
     // TODO: Account for time to start/stop?
     return driveTimed(v, t, totalTime);
 }
+
+/**
+ * Turn by the specified degrees.
+ */
+function turnBy(degrees) {
+    var ret = [];
+    // Adjust for overeagerness. (Based on 90° turns.)
+    degrees = degrees / 1.07;
+    var dir = degrees === 0 ? 0 : Math.abs(degrees) / degrees;
+    var remainAbs = degrees === 0 ? 0 : degrees / dir;
+    while (remainAbs > 0) {
+        // We can't use 180; it (weirdly) alternates left vs. right.
+        var turn = Math.min(90, remainAbs);
+        ret.push(tw(turn * dir, 17 * turn));
+        remainAbs -= turn;
+    }
+    return ret;
+}
+
+/** Just wait this any milliseconds before the next action. */
+function wait(w) {
+    return [dtw(0, 0, w)];
+}
+
