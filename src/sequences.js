@@ -20,7 +20,7 @@ function pentangle() {
 }
 
 /** Generate a random wander with n segments. */
-function mWander(n) {
+function wander(n) { //TODO: Time or distance instead of steps?
     var res = [];
     for (var i = 0; i <= n; i++) {
         var choose = Math.random();
@@ -46,7 +46,7 @@ function mWander(n) {
  * and a total wait time in ms. v = velocity, t = turn factor, turnAlt
  * = true for alternating the turn direction.
  */
-function mOscillate(v, t, turnAlt, period, total_w) {
+function oscillate(v, t, turnAlt, period, total_w) {
     var leftover = total_w % period;
     var reps = (total_w - leftover) / period;
     var hp = period / 2;
@@ -61,3 +61,10 @@ function mOscillate(v, t, turnAlt, period, total_w) {
 
 // Demo:
 // doSequence(patrolLoop);
+
+var sequenceExamples = {
+    patrolLoop:patrolLoop,
+    pentangle:pentangle,
+    wander:wander,
+    oscillate:oscillate
+};
