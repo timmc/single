@@ -19,8 +19,9 @@ console when you have the page open. :-/
 - Use functions like `driveDist` to generate arrays of timed actions.
 - Call `doSequence` on one of these sequences to execute it.
 
-For example, the following has about a 1 in 4 chance of making the
-robot fall over:
+For example, run `doSequence(driveDist(200, 1, 0))` to drive on the
+order of 200 feet (very approximate). Or, the following has about a 1
+in 4 chance of making the robot fall over:
 
 ```javascript
 doSequence(repeatSeq([dtw(-100, 0, 150), tw(90, 250), tw(-90, 400), dtw(200, 0, 200), tw(90, 1000), dtw(-100, 90, 1000)], 4))
