@@ -1,3 +1,5 @@
+# Single
+
 A set of functions and monkeypatches for scripting the Double Robotics
 telepresence bot.
 
@@ -7,6 +9,10 @@ telepresence bot.
 - Drag `target/single.user.js` into Chrome's extensions window
 - Load the Double control interface
 - Start playing!
+
+**Except**... I can't get the script injection to work, so just copy
+the contents of utils.js, movement.js, and sequences.js into the JS
+console when you have the page open. :-/
 
 ## Usage
 
@@ -31,11 +37,12 @@ act.
 ## Code guide
 
 - util.js provides some basic JS facilities
-- patch.js provides movement functions
+- movement.js provides movement functions
 - sequences.js provides some sample sequences
 
 ## Disclaimer
 
 This code *really* does not come with a warranty or claim of
 fitness. In particular, you run a good chance of breaking the robot if
-you are not careful with this code, or even if you are.
+you are not careful with this code, or even if you are. (I mean, more
+so than just driving it normally!)
